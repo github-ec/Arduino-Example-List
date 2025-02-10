@@ -6,7 +6,7 @@ This project aims to support listing and finding the appropriate example *.ino f
 **How to create an executable**
 * Install Lazarus IDE (see https://www.lazarus-ide.org/)
 * Download the repository files to a directory on your computer
-* Start Lazarus IDE and open the project file "ArduinoExamples.lpi"
+* Start Lazarus IDE and open the project ("ArduinoExamples.lpr" or "ArduinoExamples.lpi")
 * Compile the project
 * Run the executable
 
