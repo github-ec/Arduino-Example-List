@@ -1,0 +1,140 @@
+object Form1: TForm1
+  Left = 502
+  Height = 527
+  Top = 192
+  Width = 471
+  BorderStyle = bsSingle
+  Caption = 'Arduino Library Examples'
+  ClientHeight = 527
+  ClientWidth = 471
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  LCLVersion = '3.6.0.0'
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 520
+    Top = 0
+    Width = 472
+    ActivePage = TabSheet3
+    TabIndex = 0
+    TabOrder = 0
+    object TabSheet3: TTabSheet
+      Caption = 'Treeview'
+      ClientHeight = 492
+      ClientWidth = 464
+      object TreeView1: TTreeView
+        Left = 8
+        Height = 416
+        Top = 8
+        Width = 448
+        PopupMenu = pmTree
+        TabOrder = 0
+        OnContextPopup = TreeView1ContextPopup
+        OnDblClick = TreeView1DblClick
+      end
+      object TreeFilterEdit1: TTreeFilterEdit
+        Left = 8
+        Height = 23
+        Top = 432
+        Width = 208
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 1
+        OnChange = TreeFilterEdit1Change
+        FilteredTreeview = TreeView1
+      end
+      object edSearchTree: TEdit
+        Left = 8
+        Height = 23
+        Top = 464
+        Width = 184
+        TabOrder = 2
+        OnChange = edSearchTreeChange
+        OnKeyUp = edSearchTreeKeyUp
+      end
+      object btSearch: TButton
+        Left = 216
+        Height = 25
+        Top = 464
+        Width = 75
+        Caption = 'Search'
+        TabOrder = 3
+        OnClick = btSearchClick
+      end
+      object btUpdateTreeView: TButton
+        Left = 344
+        Height = 25
+        Top = 432
+        Width = 112
+        Caption = 'Read Directories'
+        TabOrder = 4
+        OnClick = btUpdateTreeViewClick
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Parameters'
+      ClientHeight = 492
+      ClientWidth = 464
+      object edPathToIDE: TEdit
+        Left = 16
+        Height = 23
+        Top = 280
+        Width = 344
+        TabOrder = 0
+      end
+      object Label1: TLabel
+        Left = 16
+        Height = 15
+        Top = 8
+        Width = 131
+        Caption = 'Path to Arduino Libraries'
+      end
+      object Label2: TLabel
+        Left = 16
+        Height = 15
+        Top = 264
+        Width = 104
+        Caption = 'Path to Arduino IDE'
+      end
+      object Button2: TButton
+        Left = 16
+        Height = 25
+        Top = 328
+        Width = 136
+        Caption = 'Save to IniFile'
+        TabOrder = 1
+        OnClick = Button2Click
+      end
+      object Button3: TButton
+        Left = 16
+        Height = 25
+        Top = 368
+        Width = 136
+        Caption = 'Reload from IniFile'
+        TabOrder = 2
+        OnClick = Button3Click
+      end
+      object sgLibPath: TStringGrid
+        Left = 16
+        Height = 232
+        Top = 24
+        Width = 408
+        ColCount = 3
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goSmoothScroll]
+        RowCount = 9
+        TabOrder = 3
+      end
+    end
+  end
+  object pmTree: TPopupMenu
+    Left = 256
+    object pmOpenInIde: TMenuItem
+      Caption = 'Open In IDE'
+      OnClick = pmOpenInIdeClick
+    end
+  end
+  object MainMenu1: TMainMenu
+    Left = 312
+  end
+end
