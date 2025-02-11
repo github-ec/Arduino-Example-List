@@ -47,5 +47,8 @@ The Search button allows to search the Treeview (case insensitive):
 **Additional Information**
 * Linux: The Arduino IDE 1.8.19 uses different places to store libraries. This may be specific to the Linux version  ...
 * Windows: Arduino IDE 2.3.4 stores libraries (except the delivered standard libs) in the Sketchbook directory.
+* Windows: I found the standard libs (e.g. 01. Basic) stored in the Arduino IDE directory structure:
+  (C:\Program Files\Arduino IDE\resources\app\lib\backend\resources)
+
 
   
