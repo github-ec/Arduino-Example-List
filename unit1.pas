@@ -20,42 +20,43 @@ type
   TForm1 = class(TForm)
     btSearch: TButton;
     btUpdateTreeView: TButton;
-    Button2: TButton;
-    Button3: TButton;
+    btSave: TButton;
+    btReload: TButton;
     edPathToIDE: TEdit;
     edSearchTree: TEdit;
     Label1: TLabel;
     Label2: TLabel;
-    MainMenu1: TMainMenu;
-    pmOpenInIde: TMenuItem;
-    PageControl1: TPageControl;
-    pmTree: TPopupMenu;
+    pmOpenInViewer: TMenuItem;
+    pmOpenInIDE: TMenuItem;
+    pmOpen: TMenuItem;
+    PageControl: TPageControl;
+    pmTreeView: TPopupMenu;
     sgLibPath: TStringGrid;
-    TabSheet2: TTabSheet;
-    TabSheet3: TTabSheet;
-    TreeFilterEdit1: TTreeFilterEdit;
-    TreeView1: TTreeView;
+    tsParameters: TTabSheet;
+    tsTreeView: TTabSheet;
+    TreeFilterEdit: TTreeFilterEdit;
+    TreeView: TTreeView;
     procedure btUpdateTreeViewClick(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
+    procedure btSaveClick(Sender: TObject);
+    procedure btReloadClick(Sender: TObject);
     procedure btSearchClick(Sender: TObject);
     procedure edSearchChange(Sender: TObject);
     procedure edSearchTreeChange(Sender: TObject);
     procedure edSearchTreeKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
-    procedure openIDEClick(Sender: TObject);
     procedure pmOpenInIdeClick(Sender: TObject);
-    procedure TreeFilterEdit1Change(Sender: TObject);
-    procedure TreeView1ContextPopup(Sender: TObject; MousePos: TPoint;
+    procedure pmOpenInViewerClick(Sender: TObject);
+    procedure TreeFilterEditChange(Sender: TObject);
+    procedure TreeViewContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: boolean);
-    procedure TreeView1DblClick(Sender: TObject);
   private
     procedure AddToTreeView(subRootName: string; var aList: TStringList);
     procedure LoadFromIniFile;
+    procedure OpenInViewer;
     procedure RunExternalApp(ExternalApp: string; wOption: TShowWindowOptions);
     procedure SaveToIniFile;
     procedure SearchTreeView;
-    procedure startFromTreeView;
+    procedure openInIDE;
     procedure startInIDE(examplePath: string);
     procedure UpdateDirList;
   public
@@ -73,8 +74,10 @@ implementation
 
 { TForm1 }
 
+uses unit2;
+
 const
-  cCaption = 'Arduino Library Examples V1.2';
+  cCaption = 'Arduino Library Examples V1.3';
   searchUpper = 'Examples';
   searchLower = 'examples';
 
@@ -129,12 +132,12 @@ begin
   UpdateDirList;
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.btSaveClick(Sender: TObject);
 begin
   saveToIniFile;
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
+procedure TForm1.btReloadClick(Sender: TObject);
 begin
   LoadFromIniFile;
 end;
@@ -150,9 +153,9 @@ begin
   s := edSearchTree.Text;
   s := s.toUpper;
   node := nil;
-  TreeView1.BeginUpdate;
+  TreeView.BeginUpdate;
   try
-    if (searchNode = nil) then  searchNode := TreeView1.Items.GetFirstNode;
+    if (searchNode = nil) then  searchNode := TreeView.Items.GetFirstNode;
     while (searchNode <> nil) and (not found) do
     begin
       if (searchNode.Level > 0) and (searchNode.Visible) then
@@ -165,15 +168,15 @@ begin
       searchNode := searchNode.GetNext;
     end;
   finally
-    TreeView1.EndUpdate;
+    TreeView.EndUpdate;
   end;
   if found then
   begin
-    TreeView1.Items[0].Collapse(True);
-    //TreeView1.Items[0].Expand(False);
+    TreeView.Items[0].Collapse(True);
+    //TreeView.Items[0].Expand(False);
     node.expand(True);
-    TreeView1.TopItem := node;
-    TreeView1.Selected := node;
+    TreeView.TopItem := node;
+    TreeView.Selected := node;
   end
   else
   begin
@@ -211,6 +214,18 @@ begin
   UpDateDirList;
 end;
 
+procedure TForm1.openInViewer;
+var
+  Path: string;
+  node: TTreeNode;
+begin
+  node := TreeView.Selected;
+  if node.Data = nil then
+    exit
+  else
+    Form2.OpenFile(TDataClass(node.Data).Path);
+end;
+
 procedure TForm1.startInIDE(examplePath: string);
 var
   idePath: string;
@@ -223,46 +238,41 @@ begin
     ShowMessage('Cannot find ' + idePath);
 end;
 
-procedure TForm1.openIDEClick(Sender: TObject);
-begin
-  startFromTreeView;
-end;
-
 procedure TForm1.pmOpenInIdeClick(Sender: TObject);
 begin
-  startFromTreeView;
+  openInIDE;
 end;
 
-procedure TForm1.TreeFilterEdit1Change(Sender: TObject);
+procedure TForm1.pmOpenInViewerClick(Sender: TObject);
 begin
-  //Panel1.Visible := (TreeFilterEdit1.Filter = '');
+  openInViewer;
 end;
 
-procedure TForm1.TreeView1ContextPopup(Sender: TObject; MousePos: TPoint;
+procedure TForm1.TreeFilterEditChange(Sender: TObject);
+begin
+  //Panel1.Visible := (TreeFilterEdit.Filter = '');
+end;
+
+procedure TForm1.TreeViewContextPopup(Sender: TObject; MousePos: TPoint;
   var Handled: boolean);
 var
   node: TTreeNode;
 begin
-  node := TreeView1.GetNodeAt(MousePos.X, MousePos.Y);
+  node := TreeView.GetNodeAt(MousePos.X, MousePos.Y);
   if not Assigned(node) then Abort;
   Handled := (node.Data = nil);
 end;
 
-procedure TForm1.startFromTreeView;
+procedure TForm1.openInIDE;
 var
   Path: string;
   node: TTreeNode;
 begin
-  node := TreeView1.Selected;
+  node := TreeView.Selected;
   if node.Data = nil then
     exit
   else
     startInIDE(TDataClass(node.Data).Path);
-end;
-
-procedure TForm1.TreeView1DblClick(Sender: TObject);
-begin
-  startFromTreeView;
 end;
 
 procedure TForm1.RunExternalApp(ExternalApp: string; wOption: TShowWindowOptions);
@@ -292,9 +302,9 @@ var
   end;
 
 begin
-  TreeView1.Items.Clear;
-  TreeView1.Items.Add(nil, 'Library Examples');
-  TreeView1.ShowRoot := True;
+  TreeView.Items.Clear;
+  TreeView.Items.Add(nil, 'Library Examples');
+  TreeView.ShowRoot := True;
   Count := 1;
   for i := 1 to sgLibPath.RowCount - 1 do
   begin
@@ -334,11 +344,11 @@ begin
   List := TStringList.Create;
   List.Delimiter := PathDelimiter;
   try
-    rootNode := TreeView1.Items[0];
+    rootNode := TreeView.Items[0];
     subRootNode := rootNode.FindNode(subRootName);
     if (subRootNode = nil) then
-      subRootNode := TreeView1.Items.AddChild(rootNode, subRootName);
-    TreeView1.BeginUpdate;
+      subRootNode := TreeView.Items.AddChild(rootNode, subRootName);
+    TreeView.BeginUpdate;
     for i := 1 to aList.Count - 1 do
     begin
       if containsExamplePath(aList[i]) then
@@ -354,7 +364,7 @@ begin
             node := startNode.FindNode(List[j]);
             if node = nil then
             begin
-              node := TreeView1.Items.AddChild(startNode, List[j]);
+              node := TreeView.Items.AddChild(startNode, List[j]);
               node.Data := nil;
               if j = List.Count - 2 then
               begin
@@ -368,7 +378,7 @@ begin
       end;
     end;
   finally
-    TreeView1.EndUpdate;
+    TreeView.EndUpdate;
     List.Free;
   end;
 end;

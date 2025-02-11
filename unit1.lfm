@@ -1,38 +1,36 @@
 object Form1: TForm1
-  Left = 502
+  Left = 438
   Height = 527
-  Top = 192
+  Top = 201
   Width = 471
   BorderStyle = bsSingle
   Caption = 'Arduino Library Examples'
   ClientHeight = 527
   ClientWidth = 471
-  Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '3.6.0.0'
-  object PageControl1: TPageControl
+  object PageControl: TPageControl
     Left = 0
     Height = 520
     Top = 0
     Width = 472
-    ActivePage = TabSheet3
+    ActivePage = tsTreeView
     TabIndex = 0
     TabOrder = 0
-    object TabSheet3: TTabSheet
+    object tsTreeView: TTabSheet
       Caption = 'Treeview'
       ClientHeight = 492
       ClientWidth = 464
-      object TreeView1: TTreeView
+      object TreeView: TTreeView
         Left = 8
         Height = 416
         Top = 8
         Width = 448
-        PopupMenu = pmTree
+        PopupMenu = pmTreeView
         TabOrder = 0
-        OnContextPopup = TreeView1ContextPopup
-        OnDblClick = TreeView1DblClick
+        OnContextPopup = TreeViewContextPopup
       end
-      object TreeFilterEdit1: TTreeFilterEdit
+      object TreeFilterEdit: TTreeFilterEdit
         Left = 8
         Height = 23
         Top = 432
@@ -41,8 +39,8 @@ object Form1: TForm1
         NumGlyphs = 1
         MaxLength = 0
         TabOrder = 1
-        OnChange = TreeFilterEdit1Change
-        FilteredTreeview = TreeView1
+        OnChange = TreeFilterEditChange
+        FilteredTreeview = TreeView
       end
       object edSearchTree: TEdit
         Left = 8
@@ -72,7 +70,7 @@ object Form1: TForm1
         OnClick = btUpdateTreeViewClick
       end
     end
-    object TabSheet2: TTabSheet
+    object tsParameters: TTabSheet
       Caption = 'Parameters'
       ClientHeight = 492
       ClientWidth = 464
@@ -97,23 +95,23 @@ object Form1: TForm1
         Width = 104
         Caption = 'Path to Arduino IDE'
       end
-      object Button2: TButton
+      object btSave: TButton
         Left = 16
         Height = 25
         Top = 328
         Width = 136
         Caption = 'Save to IniFile'
         TabOrder = 1
-        OnClick = Button2Click
+        OnClick = btSaveClick
       end
-      object Button3: TButton
+      object btReload: TButton
         Left = 16
         Height = 25
         Top = 368
         Width = 136
         Caption = 'Reload from IniFile'
         TabOrder = 2
-        OnClick = Button3Click
+        OnClick = btReloadClick
       end
       object sgLibPath: TStringGrid
         Left = 16
@@ -127,14 +125,18 @@ object Form1: TForm1
       end
     end
   end
-  object pmTree: TPopupMenu
-    Left = 256
-    object pmOpenInIde: TMenuItem
-      Caption = 'Open In IDE'
-      OnClick = pmOpenInIdeClick
+  object pmTreeView: TPopupMenu
+    Left = 352
+    Top = 64
+    object pmOpen: TMenuItem
+      Caption = 'Open in'
+      object pmOpenInViewer: TMenuItem
+        Caption = 'Viewer'
+        OnClick = pmOpenInViewerClick
+      end
+      object pmOpenInIDE: TMenuItem
+        Caption = 'Arduino IDE'
+      end
     end
-  end
-  object MainMenu1: TMainMenu
-    Left = 312
   end
 end
