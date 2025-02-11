@@ -38,7 +38,7 @@ The Viewer uses a SynEdit component and a CPP highlighter:
 
 ![Viewer](https://github.com/user-attachments/assets/f93f558e-f279-4d73-b9b0-843ec2124732)
 
-The TreeView can be filtered and searched:
+The Treeview can be filtered and searched:
 
 ![image](https://github.com/user-attachments/assets/1783c0f8-ff39-4dd5-8a31-ba4596875eea)
 
