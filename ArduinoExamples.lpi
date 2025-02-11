@@ -19,7 +19,7 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <DestinationDirectory Value="C:\Entwicklung\Lazarus\ArduinoExamplesV1.1"/>
+      <DestinationDirectory Value="C:\Entwicklung\Lazarus\ArduinoExamplesV1.2"/>
       <CompressFinally Value="False"/>
       <UseFileFilters Value="True"/>
     </PublishOptions>
