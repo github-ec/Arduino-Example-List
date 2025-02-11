@@ -30,9 +30,15 @@ If all went well the Treeview should show a number of nodes that can be opened f
 
 ![image](https://github.com/user-attachments/assets/45c0955f-1b39-48db-bbe5-9a368f450aaf)
 
-The final examples can be easily identified by the missing arrow in front. A right click on an example entry opens a popup menu that allows to open the appropriate file (provided that the path to the Arduino IDE is correct):
+The final examples can be easily identified by the missing arrow in front. A right click on an example entry opens a popup menu that allows to open the appropriate file either in an included Viewer window or in the Arduino IDE (provided that the path to the Arduino IDE is correct):
 
-![image](https://github.com/user-attachments/assets/d6669d18-f4d9-4eec-9e80-8294674e863d)
+![OpenIn](https://github.com/user-attachments/assets/d95e661a-e776-43c1-8b2c-49841420f41a)
+
+The Viewer uses a SynEdit component and a CPP highlighter:
+
+![Viewer](https://github.com/user-attachments/assets/f93f558e-f279-4d73-b9b0-843ec2124732)
+
+The TreeView can be filtered and searched:
 
 ![image](https://github.com/user-attachments/assets/1783c0f8-ff39-4dd5-8a31-ba4596875eea)
 
